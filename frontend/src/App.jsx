@@ -15,12 +15,13 @@ import AIToolsPage from './pages/AIToolsPage';
 import MarketplacePage from './pages/MarketplacePage';
 import LearningPage from './pages/LearningPage';
 import AdminPage from './pages/AdminPage';
+import OwnerDashboard from './components/OwnerDashboard';
 import LoadingSpinner from './components/LoadingSpinner';
 import './styles/main.css';
 
 // Protected Route Component
-const ProtectedRoute = ({ children, adminOnly = false }) => {
-  const { user, loading } = useAuth();
+const ProtectedRoute = ({ children, adminOnly = false, ownerOnly = false }) => {
+  const { user, loading, isAdmin, isOwner } = useAuth();
   
   if (loading) {
     return <LoadingSpinner />;
@@ -30,7 +31,11 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
     return <Navigate to="/login" replace />;
   }
   
-  if (adminOnly && user.role !== 'admin') {
+  if (adminOnly && !isAdmin) {
+    return <Navigate to="/dashboard" replace />;
+  }
+  
+  if (ownerOnly && !isOwner) {
     return <Navigate to="/dashboard" replace />;
   }
   
@@ -125,6 +130,16 @@ function AppContent() {
             element={
               <ProtectedRoute adminOnly>
                 <AdminPage />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Owner Routes */}
+          <Route 
+            path="/owner-dashboard" 
+            element={
+              <ProtectedRoute ownerOnly>
+                <OwnerDashboard />
               </ProtectedRoute>
             } 
           />

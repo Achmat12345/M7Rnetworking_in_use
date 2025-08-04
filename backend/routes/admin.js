@@ -1,10 +1,36 @@
 const express = require('express');
-const { adminAuth } = require('../middleware/auth');
+const { adminAuth, auth, ownerAuth } = require('../middleware/auth');
 const User = require('../models/User');
 const Product = require('../models/Product');
 const Order = require('../models/Order');
 
 const router = express.Router();
+
+// Dashboard stats endpoint for frontend
+router.get('/stats', adminAuth, async (req, res) => {
+  try {
+    const stats = {
+      totalUsers: await User.countDocuments(),
+      activeUsers: await User.countDocuments({ isActive: true }),
+      premiumUsers: await User.countDocuments({ 'subscription.plan': { $ne: 'free' } }),
+      adminUsers: await User.countDocuments({ role: { $in: ['admin', 'moderator', 'owner'] } }),
+      newUsersToday: await User.countDocuments({ 
+        createdAt: { $gte: new Date(new Date().setHours(0, 0, 0, 0)) }
+      })
+    };
+
+    res.json({
+      message: 'Dashboard stats retrieved',
+      stats,
+      userRole: req.userDoc.role,
+      permissions: req.userDoc.permissions
+    });
+
+  } catch (error) {
+    console.error('Dashboard stats error:', error);
+    res.status(500).json({ error: 'Failed to retrieve dashboard stats' });
+  }
+});
 
 // Admin dashboard stats
 router.get('/dashboard', adminAuth, async (req, res) => {
@@ -364,6 +390,34 @@ router.post('/announcements', adminAuth, async (req, res) => {
   } catch (error) {
     console.error('Send announcement error:', error);
     res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Owner/Admin status check
+router.get('/owner-status', auth, async (req, res) => {
+  try {
+    const isOwner = req.userDoc.role === 'owner';
+    const isAdmin = ['admin', 'moderator', 'owner'].includes(req.userDoc.role);
+
+    res.json({
+      isOwner,
+      isAdmin,
+      role: req.userDoc.role,
+      permissions: req.userDoc.permissions || [],
+      user: {
+        email: req.userDoc.email,
+        name: `${req.userDoc.firstName} ${req.userDoc.lastName}`,
+        subscription: req.userDoc.subscription
+      },
+      platform: {
+        name: 'M7RNetworking',
+        tagline: 'Build Identity. Tell Your Story. Create Independence.'
+      }
+    });
+
+  } catch (error) {
+    console.error('Owner status error:', error);
+    res.status(500).json({ error: 'Failed to check owner status' });
   }
 });
 

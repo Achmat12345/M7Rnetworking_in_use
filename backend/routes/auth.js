@@ -125,7 +125,10 @@ router.post('/login', [
         fullName: user.fullName,
         subscription: user.subscription,
         role: user.role,
-        profilePicture: user.profilePicture
+        permissions: user.permissions || [],
+        profilePicture: user.profilePicture,
+        isOwner: user.role === 'owner',
+        isAdmin: ['admin', 'moderator', 'owner'].includes(user.role)
       },
       token
     });

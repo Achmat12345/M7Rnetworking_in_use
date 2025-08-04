@@ -12,7 +12,7 @@ import {
 } from '@heroicons/react/24/outline';
 
 const Header = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, isOwner, isAdmin } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -26,8 +26,11 @@ const Header = () => {
       { name: 'AI Tools', href: '/ai-tools' },
       { name: 'Learning', href: '/learning' },
     ] : []),
-    ...(user?.role === 'admin' ? [
+    ...(isAdmin ? [
       { name: 'Admin', href: '/admin' }
+    ] : []),
+    ...(isOwner ? [
+      { name: '👑 Owner', href: '/owner-dashboard' }
     ] : [])
   ];
 
