@@ -8,9 +8,7 @@ import {
   AcademicCapIcon,
   ChartBarIcon,
   PlusIcon,
-  ArrowTrendingUpIcon,
-  UsersIcon,
-  CurrencyDollarIcon
+  ArrowTrendingUpIcon
 } from '@heroicons/react/24/outline';
 import LoadingSpinner from '../components/LoadingSpinner';
 
