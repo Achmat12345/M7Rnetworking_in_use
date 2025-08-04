@@ -53,7 +53,7 @@ const PublicRoute = ({ children }) => {
 };
 
 function AppContent() {
-  const { user, loading } = useAuth();
+  const { loading } = useAuth();
 
   if (loading) {
     return <LoadingSpinner />;
