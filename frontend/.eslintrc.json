@@ -1,0 +1,31 @@
+{
+  "extends": [
+    "react-app",
+    "react-app/jest"
+  ],
+  "rules": {
+    "no-unused-vars": ["error", { 
+      "args": "after-used",
+      "argsIgnorePattern": "^_",
+      "varsIgnorePattern": "^_",
+      "ignoreRestSiblings": true
+    }],
+    "no-console": ["warn", { 
+      "allow": ["warn", "error"] 
+    }],
+    "react-hooks/exhaustive-deps": "warn",
+    "jsx-a11y/anchor-is-valid": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": ["error", { 
+          "args": "after-used",
+          "argsIgnorePattern": "^_",
+          "varsIgnorePattern": "^_"
+        }]
+      }
+    }
+  ]
+}
