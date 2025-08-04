@@ -1,0 +1,45 @@
+{
+  "name": "m7rnetworking-platform",
+  "version": "1.0.0",
+  "description": "M7RNetworking - Build Identity. Tell Your Story. Create Independence.",
+  "private": true,
+  "scripts": {
+    "install-frontend": "cd frontend && npm install",
+    "install-backend": "cd backend && npm install", 
+    "install-all": "npm run install-frontend && npm run install-backend",
+    "build": "cd frontend && npm install && npm run build",
+    "start": "cd frontend && npm start",
+    "start-backend": "cd backend && npm start",
+    "dev": "concurrently \"npm run start-backend\" \"npm run start\"",
+    "deploy": "cd frontend && npm run build"
+  },
+  "keywords": [
+    "react",
+    "nodejs", 
+    "express",
+    "mongodb",
+    "ai",
+    "saas",
+    "south-africa",
+    "currency-localization",
+    "yoco-payments"
+  ],
+  "author": "M7RNetworking",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Achmat12345/M7Rnetworking_in_use.git"
+  },
+  "homepage": "https://m7rnetworking.netlify.app"
+}
