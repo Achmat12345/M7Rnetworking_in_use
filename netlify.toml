@@ -3,10 +3,10 @@
   base = "frontend"
   
   # Build command for your React app
-  command = "npm install && npm run build"
+  command = "npm install && npm run build:netlify"
   
-  # Directory that contains the deploy-ready HTML files and assets
-  publish = "frontend/build"
+  # Directory that contains the deploy-ready HTML files and assets (relative to base)
+  publish = "build"
   
   # Environment variables for build
   [build.environment]
@@ -15,15 +15,15 @@
 
 [context.production]
   base = "frontend"
-  command = "npm install && npm run build"
+  command = "npm install && npm run build:netlify"
 
 [context.deploy-preview]
   base = "frontend"
-  command = "npm install && npm run build"
+  command = "npm install && npm run build:netlify"
 
 [context.branch-deploy]
   base = "frontend"
-  command = "npm install && npm run build"
+  command = "npm install && npm run build:netlify"
 
 # SPA redirect rule (alternative to _redirects file)
 [[redirects]]
