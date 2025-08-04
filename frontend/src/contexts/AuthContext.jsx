@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
 
   // Configure axios defaults
   useEffect(() => {
-    axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+    axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5002/api';
     axios.defaults.withCredentials = true;
     
     // Add response interceptor for handling auth errors
