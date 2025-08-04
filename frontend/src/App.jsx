@@ -15,6 +15,9 @@ import AIToolsPage from './pages/AIToolsPage';
 import MarketplacePage from './pages/MarketplacePage';
 import LearningPage from './pages/LearningPage';
 import AdminPage from './pages/AdminPage';
+import ContactPage from './pages/ContactPage';
+import PricingPage from './pages/PricingPage';
+import AboutPage from './pages/AboutPage';
 import OwnerDashboard from './components/OwnerDashboard';
 import LoadingSpinner from './components/LoadingSpinner';
 import './styles/main.css';
@@ -72,6 +75,10 @@ function AppContent() {
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/marketplace" element={<MarketplacePage />} />
           <Route 
             path="/login" 
             element={
@@ -114,7 +121,6 @@ function AppContent() {
               </ProtectedRoute>
             } 
           />
-          <Route path="/marketplace" element={<MarketplacePage />} />
           <Route 
             path="/learning" 
             element={
